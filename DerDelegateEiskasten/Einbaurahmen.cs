@@ -51,8 +51,8 @@ namespace DerDelegateEiskasten
             this._nameUnterschrank = nameunter;
 
             DebugInfo.DebugListe.Add(this.ToString());
-            DebugInfo.DebugListe.Add(oberschrank.ToString() + " '" + nameober + " oben und" );
-            DebugInfo.DebugListe.Add(unterschrank.ToString() + " '" + nameunter + " unten im Schrank");
+            DebugInfo.DebugListe.Add(oberschrank.ToString() + " '" + nameober + "' oben und" );
+            DebugInfo.DebugListe.Add(unterschrank.ToString() + " '" + nameunter + "' unten im Schrank");
 
             DebugInfo.Ausgabe();
 

@@ -25,18 +25,119 @@ namespace DerDelegateEiskasten
                 Extensionmethodes.Ausgabe("Choose one of the following options:  ");
                 Extensionmethodes.Ausgabe("-->  F3     Testing Mode  ");
                 Extensionmethodes.Ausgabe("-->  F4     Operating Mode  ");
+                Extensionmethodes.Ausgabe("-->  F5     Modultest Mode  ");
                 input = Console.ReadKey();
-            } while (input.Key != ConsoleKey.F3 && input.Key != ConsoleKey.F4);
+            } while (input.Key != ConsoleKey.F3 && input.Key != ConsoleKey.F4 && input.Key != ConsoleKey.F5);
 
             if (input.Key == ConsoleKey.F3)
                 MainTest(args);
-            else
+            else if ((input.Key == ConsoleKey.F4))
                 MainOperating(args);
+            else
+                Modultest(args);
 
             Extensionmethodes.Ausgabe("**************************************************");
             Extensionmethodes.Ausgabe("*                  Bye, bye ...                  *");
             Extensionmethodes.Ausgabe("**************************************************");
         }
+
+        private static void Modultest (string[] args)
+        {
+            Extensionmethodes.Ausgabe(" ");
+            Extensionmethodes.Ausgabe("**************************************************");
+
+// Datenbank gefüllt mit Hersteller, Anschrift und Produktgruppen. 
+
+            Datenbank.FillIt();
+
+// A) Bauen Sie 1 Einbauschrank mit 1 Kuehl- und 1 Gefrierschrank                   (5 Punkte)
+//          1) Kuehlschrank oben mit dem Namen: "Der Modultest Kühlschrank"         (15 Minuten)
+//                  Type: Kuehli
+//          2) Microwelle unten mit dem Namen "Der Microwellen Herd mit Kuehlfunktion" 
+//                  Type: KuehliKuehliFuerLagerProdukte 
+//                  ArtEiskasten.Microwelle
+            
+            Extensionmethodes.Ausgabe(" ");
+            Extensionmethodes.Ausgabe("**************************************************");
+
+            Kuehli kuehli = new Kuehli
+                ("Der Modultest Kühlschrank", ArtEiskasten.Kuehltruhe);
+
+            KuehliFuerLagerProdukte gfrieri = new KuehliFuerLagerProdukte
+                ("Der Microwellen Herd mit Kuehlfunktion", ArtEiskasten.Microwellenherd);
+
+            Einbaurahmen<Kuehli, KuehliFuerLagerProdukte> ikaeKastel =
+                new Einbaurahmen<Kuehli, KuehliFuerLagerProdukte>(kuehli, gfrieri, kuehli.name, gfrieri.name);
+
+            Extensionmethodes.Ausgabe(" ");
+            Extensionmethodes.Ausgabe("**************************************************");
+
+// B) Befüllen Sie jeweils 3 "Produkte" in den Kühlschrank bzw. in den Microwellenherd (5 Punkte)
+//                                                                                     (10 Minuten)
+
+            ikaeKastel.Oberschrank.Einschalten();
+            ikaeKastel.Unterschrank.Einschalten();
+
+            ikaeKastel.Oberschrank.EtwasReinlegen(new Produkt(1425, "Apfel Rot"));
+            ikaeKastel.Oberschrank.EtwasReinlegen(new Produkt(3344, "Apfel Grün"));
+            ikaeKastel.Oberschrank.EtwasReinlegen(new Produkt(4644, "Apfel Gelb"));
+
+            ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(1, 5425, "Stange Salami", 2, 2));
+            ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(2, 5233, "Salzstiegl Bier", 4, 1));
+            ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(3, 5938, "Joghurt", 6, 3));
+
+// C)   Wie konzentrieren uns jetzt auf den KuehliFuerLagerProdukte.
+//      Zeigen Sie alle LagerProdukte mit ZeigeAlleProdukte an.
+//      Wie sie sehen können, werden Produkte wie folgt angezeigt: 
+//      
+//      Das Produkt: Code: 5425 - Name: 2 Stange Salami
+
+            Extensionmethodes.Ausgabe(" ");
+            Extensionmethodes.Ausgabe("**************************************************");
+
+            // ikaeKastel.Unterschrank.ZeigeAlleProdukte();
+
+
+//                                                                              (3 Punkte - 10 Minuten)
+//  D)  Erweitern Sie die Ausgabe, dass in der Ausgabe auch der Herstellername angezeigt wird:
+//      Das Produkt: Code: 5425 - Name: 2 Stange Salami - Hersteller: Wolf
+// 
+//      Benutzen Sie dazu die Lambda Expression: 
+//      var hersteller = Datenbank.herstellerListe.Where(x => x.Id == this.HerstellerId).FirstOrDefault();
+//      Geben Sie nun die LagerProdukte wieder mit ZeigeAlleProdukte aus. 
+//      Entfernen Sie anschließend die obere Ausgabe, damit die Produkte nur einmal angezeigt werden. 
+
+            ikaeKastel.Unterschrank.ZeigeAlleProdukte();
+
+
+
+
+
+            Extensionmethodes.Ausgabe(" ");
+            Extensionmethodes.Ausgabe("**************************************************");
+            Extensionmethodes.Ausgabe("*********** Press RETURN to run the devices ******");
+
+            Console.Read();
+
+
+            while (!Console.KeyAvailable)
+            {
+                Extensionmethodes.Ausgabe("");
+                Extensionmethodes.Ausgabe("OperationLoop: Device is working ...! The temperatures are: ");
+                
+//  E)      TODO Aufgabenstellung ... 
+
+
+
+                Extensionmethodes.Ausgabe(ikaeKastel.Oberschrank.GetActualTemperature());
+                Extensionmethodes.Ausgabe(ikaeKastel.Unterschrank.GetActualTemperature());
+
+                Thread.Sleep(1000);
+            }
+
+            Extensionmethodes.Ausgabe("Now shutdown all devices. ");
+        }
+
 
 
         private static void MainOperating (string[] args)

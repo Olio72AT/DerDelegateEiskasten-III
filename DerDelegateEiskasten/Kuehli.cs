@@ -10,6 +10,12 @@ namespace DerDelegateEiskasten
         public ArtEiskasten art { get; }
         public string name { get; }
         private bool _eingeschaltet { get; set; } = false;
+
+        private int temperature { get; set; } = 0;
+
+        private int temperatureShouldHave = -5;
+        
+        
         public List<Produkt> kuehlspeicher { get; set; } = new List<Produkt>();
 
 
@@ -19,10 +25,22 @@ namespace DerDelegateEiskasten
             art = artEiskasten;
             this.name = name;
 
-            DebugInfo.DebugListe.Add("IEiskasten neu instanziert als " + art.ToString());
+            DebugInfo.DebugListe.Add("Kuehli neu instanziert als " + art.ToString());
             DebugInfo.Ausgabe();
 
+            var randomNumber = new Random();
+            temperature = randomNumber.Next(0, 20);
             
+        }
+
+        public string GetActualTemperature()
+        {
+            if (temperature > temperatureShouldHave)
+                temperature -= 1;
+            else if (temperature < temperatureShouldHave)
+                temperature += 1;
+
+            return name + " " + temperature + " Celsius   (Soll) " + temperatureShouldHave + " Celcius";
         }
 
         public void Ausschalten()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DerDelegateEiskasten
@@ -75,7 +76,8 @@ namespace DerDelegateEiskasten
         
         public override string ToString()
         {
-            return "Code: " + strichCodeNummer + " - Name: " + Stueck + " " + name; 
+            var hersteller = Datenbank.herstellerListe.Where(x => x.Id == this.HerstellerId).FirstOrDefault();
+            return "Code: " + strichCodeNummer + " - Name: " + Stueck + " " + name + " - Hersteller: " + hersteller.FirmenNamen; 
         }
     }
 

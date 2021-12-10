@@ -40,13 +40,31 @@ namespace DerDelegateEiskasten
             else if (temperature < temperatureShouldHave)
                 temperature += 1;
 
+            if (temperature < -30)
+            {
+                var returnstring = name + " **** I am dead ";
+                Ausschalten();
+                return returnstring;
+            }
+
             return name + " " + temperature + " Celsius   (Soll) " + temperatureShouldHave + " Celcius";
         }
 
         public void Ausschalten()
         {
-            DebugInfo.DebugListe.Add(art.ToString() + " wurde ausgeschaltet.");
-            DebugInfo.Ausgabe();
+            if (_eingeschaltet)
+            {
+                DebugInfo.DebugListe.Add(art.ToString() + " wurde ausgeschaltet.");
+                DebugInfo.Ausgabe();
+
+            }
+            else
+            {
+                DebugInfo.DebugListe.Add(art.ToString() + " wurde bereits ausgeschaltet.");
+                DebugInfo.Ausgabe();
+
+            }
+
             _eingeschaltet = false;
             Extensionmethodes.Beep(this,440);
         }

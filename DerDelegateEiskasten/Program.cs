@@ -8,10 +8,11 @@ namespace DerDelegateEiskasten
 {
     class Program
     {
+
         private static bool endThread = false;
 
         private static Einbaurahmen<Kuehli, Kuehli> Rahmen;
-     
+        
 
         static void Main(string[] args)
         {
@@ -26,6 +27,14 @@ namespace DerDelegateEiskasten
                 Extensionmethodes.Ausgabe("-->  F3     Testing Mode  ");
                 Extensionmethodes.Ausgabe("-->  F4     Operating Mode  ");
                 Extensionmethodes.Ausgabe("-->  F5     Modultest Mode  ");
+                Extensionmethodes.Ausgabe(" ");
+                Extensionmethodes.Ausgabe("Modultest: Siehe -> private static void Modultest (string[] args)  ");
+                Extensionmethodes.Ausgabe(" ");
+                Extensionmethodes.Ausgabe("Zu erreichen sind 25 Punkte. Testzeit 70 min. ");
+                Extensionmethodes.Ausgabe("Ab 13 Punkten wird der Test positiv gewertet. ");
+                Extensionmethodes.Ausgabe(" ");
+                Extensionmethodes.Ausgabe("Viel Spass und gutes Gelingen! ");
+
                 input = Console.ReadKey();
             } while (input.Key != ConsoleKey.F3 && input.Key != ConsoleKey.F4 && input.Key != ConsoleKey.F5);
 
@@ -41,6 +50,10 @@ namespace DerDelegateEiskasten
             Extensionmethodes.Ausgabe("**************************************************");
         }
 
+
+
+
+
         private static void Modultest (string[] args)
         {
             Extensionmethodes.Ausgabe(" ");
@@ -51,7 +64,7 @@ namespace DerDelegateEiskasten
             Datenbank.FillIt();
 
 // A) Bauen Sie 1 Einbauschrank mit 1 Kuehl- und 1 Gefrierschrank                   (5 Punkte)
-//          1) Kuehlschrank oben mit dem Namen: "Der Modultest Kühlschrank"         (15 Minuten)
+//          1) Kuehlschrank oben mit dem Namen: "Der Modultest Kühlschrank"         (10 Minuten)
 //                  Type: Kuehli
 //          2) Microwelle unten mit dem Namen "Der Microwellen Herd mit Kuehlfunktion" 
 //                  Type: KuehliKuehliFuerLagerProdukte 
@@ -73,7 +86,7 @@ namespace DerDelegateEiskasten
             Extensionmethodes.Ausgabe("**************************************************");
 
 // B) Befüllen Sie jeweils 3 "Produkte" in den Kühlschrank bzw. in den Microwellenherd (5 Punkte)
-//                                                                                     (10 Minuten)
+//                                                                                     (15 Minuten)
 
             ikaeKastel.Oberschrank.Einschalten();
             ikaeKastel.Unterschrank.Einschalten();
@@ -86,7 +99,8 @@ namespace DerDelegateEiskasten
             ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(2, 5233, "Salzstiegl Bier", 4, 1));
             ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(3, 5938, "Joghurt", 6, 3));
 
-// C)   Wie konzentrieren uns jetzt auf den KuehliFuerLagerProdukte.
+// C)   Wie konzentrieren uns jetzt auf den KuehliFuerLagerProdukte.                   (2 Punkte)
+//                                                                                     (5 Minuten)
 //      Zeigen Sie alle LagerProdukte mit ZeigeAlleProdukte an.
 //      Wie sie sehen können, werden Produkte wie folgt angezeigt: 
 //      
@@ -98,17 +112,37 @@ namespace DerDelegateEiskasten
             // ikaeKastel.Unterschrank.ZeigeAlleProdukte();
 
 
-//                                                                              (3 Punkte - 10 Minuten)
+//                                                                              (5 Punkte - 10 Minuten)
 //  D)  Erweitern Sie die Ausgabe, dass in der Ausgabe auch der Herstellername angezeigt wird:
 //      Das Produkt: Code: 5425 - Name: 2 Stange Salami - Hersteller: Wolf
 // 
+//      Geben Sie nun die LagerProdukte wieder mit ZeigeAlleProdukte aus.    
+//
 //      Benutzen Sie dazu die Lambda Expression: 
 //      var hersteller = Datenbank.herstellerListe.Where(x => x.Id == this.HerstellerId).FirstOrDefault();
-//      Geben Sie nun die LagerProdukte wieder mit ZeigeAlleProdukte aus. 
+//       
 //      Entfernen Sie anschließend die obere Ausgabe, damit die Produkte nur einmal angezeigt werden. 
 
             ikaeKastel.Unterschrank.ZeigeAlleProdukte();
 
+
+
+            
+
+            //  E)      Legen Sie eine neue Klasse an -> Einbausockel.cs                (5 Punkte - 15 Minuten)
+            //          Zusätzlich zu jedem Einbaurahmen soll es nun einen Sockel geben, auf 
+            //          dem die Holzkiste steht. Dieser Sockel soll nur einen Einbaurahmen 
+            //          haben.
+            //          Bauen Sie eine generische Klasse, die diesem Sockel<T> entspricht. 
+            // 
+            //          Rufen Sie Ihn ins Leben, sodass der Einbaurahmen nur wie folgt adressiert werden kann: 
+            //          ikaeSockel.ikaeKastel ....  
+
+            Einbausockel<Einbaurahmen<Kuehli, KuehliFuerLagerProdukte>> ikaeSockel = 
+                new Einbausockel<Einbaurahmen<Kuehli, KuehliFuerLagerProdukte>>(ikaeKastel, "Super Einbausockel");
+
+            // Test it ...
+            ikaeSockel.Einbaurahmen.Oberschrank.Beep(200);
 
 
 
@@ -117,17 +151,20 @@ namespace DerDelegateEiskasten
             Extensionmethodes.Ausgabe("**************************************************");
             Extensionmethodes.Ausgabe("*********** Press RETURN to run the devices ******");
 
-            Console.Read();
 
+            Console.Read();
 
             while (!Console.KeyAvailable)
             {
                 Extensionmethodes.Ausgabe("");
                 Extensionmethodes.Ausgabe("OperationLoop: Device is working ...! The temperatures are: ");
-                
-//  E)      TODO Aufgabenstellung ... 
 
-
+//                                                                                   ( 3 Punkte - 10 Minuten )
+//  F)      Kuehli als auch KuehliFuerLagerProdukte haben bereits eine neue Temperaturregelung eingebaut.  
+//          Inspizieren Sie die Codetechnische Umsetzung, und geben Sie innerhalb der while Schleife 
+//          mit Extensionmethodes.Ausgabe(...), die jeweilige Temperatur aus. 
+//          Was fällt Ihnen auf? Aus einem Grund verhält sich eines der Geräte sonderbar. 
+//          Versuchen Sie den Fehler zu finden ... 
 
                 Extensionmethodes.Ausgabe(ikaeKastel.Oberschrank.GetActualTemperature());
                 Extensionmethodes.Ausgabe(ikaeKastel.Unterschrank.GetActualTemperature());
@@ -135,8 +172,21 @@ namespace DerDelegateEiskasten
                 Thread.Sleep(1000);
             }
 
+            Extensionmethodes.Ausgabe(" ");
             Extensionmethodes.Ausgabe("Now shutdown all devices. ");
+
+
+            //  G)      Shutdown all devices                                        (Zusatzpunkte: 2 Punkte, 5 Minute)
+
+            ikaeSockel.Einbaurahmen.Oberschrank.Ausschalten();
+            ikaeSockel.Einbaurahmen.Unterschrank.Ausschalten();
+
         }
+
+
+
+
+
 
 
 

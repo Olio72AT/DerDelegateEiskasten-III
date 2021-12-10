@@ -36,6 +36,7 @@ namespace DerDelegateEiskasten
                 Extensionmethodes.Ausgabe("Viel Spass und gutes Gelingen! ");
 
                 input = Console.ReadKey();
+
             } while (input.Key != ConsoleKey.F3 && input.Key != ConsoleKey.F4 && input.Key != ConsoleKey.F5);
 
             if (input.Key == ConsoleKey.F3)
@@ -66,21 +67,16 @@ namespace DerDelegateEiskasten
 // A) Bauen Sie 1 Einbauschrank mit 1 Kuehl- und 1 Gefrierschrank                   (5 Punkte)
 //          1) Kuehlschrank oben mit dem Namen: "Der Modultest Kühlschrank"         (10 Minuten)
 //                  Type: Kuehli
-//          2) Microwelle unten mit dem Namen "Der Microwellen Herd mit Kuehlfunktion" 
+//          2) Microwelle unten mit dem Namen "Der Microwellen-Herd mit Kuehlfunktion" 
 //                  Type: KuehliKuehliFuerLagerProdukte 
 //                  ArtEiskasten.Microwelle
             
             Extensionmethodes.Ausgabe(" ");
             Extensionmethodes.Ausgabe("**************************************************");
 
-            Kuehli kuehli = new Kuehli
-                ("Der Modultest Kühlschrank", ArtEiskasten.Kuehltruhe);
+            
+// hier ---> 
 
-            KuehliFuerLagerProdukte gfrieri = new KuehliFuerLagerProdukte
-                ("Der Microwellen Herd mit Kuehlfunktion", ArtEiskasten.Microwellenherd);
-
-            Einbaurahmen<Kuehli, KuehliFuerLagerProdukte> ikaeKastel =
-                new Einbaurahmen<Kuehli, KuehliFuerLagerProdukte>(kuehli, gfrieri, kuehli.name, gfrieri.name);
 
             Extensionmethodes.Ausgabe(" ");
             Extensionmethodes.Ausgabe("**************************************************");
@@ -88,16 +84,8 @@ namespace DerDelegateEiskasten
 // B) Befüllen Sie jeweils 3 "Produkte" in den Kühlschrank bzw. in den Microwellenherd (5 Punkte)
 //                                                                                     (15 Minuten)
 
-            ikaeKastel.Oberschrank.Einschalten();
-            ikaeKastel.Unterschrank.Einschalten();
+// hier --->             
 
-            ikaeKastel.Oberschrank.EtwasReinlegen(new Produkt(1425, "Apfel Rot"));
-            ikaeKastel.Oberschrank.EtwasReinlegen(new Produkt(3344, "Apfel Grün"));
-            ikaeKastel.Oberschrank.EtwasReinlegen(new Produkt(4644, "Apfel Gelb"));
-
-            ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(1, 5425, "Stange Salami", 2, 2));
-            ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(2, 5233, "Salzstiegl Bier", 4, 1));
-            ikaeKastel.Unterschrank.EtwasReinlegen(new LagerProdukt(3, 5938, "Joghurt", 6, 3));
 
 // C)   Wie konzentrieren uns jetzt auf den KuehliFuerLagerProdukte.                   (2 Punkte)
 //                                                                                     (5 Minuten)
@@ -109,8 +97,7 @@ namespace DerDelegateEiskasten
             Extensionmethodes.Ausgabe(" ");
             Extensionmethodes.Ausgabe("**************************************************");
 
-            // ikaeKastel.Unterschrank.ZeigeAlleProdukte();
-
+// hier ---> 
 
 //                                                                              (5 Punkte - 10 Minuten)
 //  D)  Erweitern Sie die Ausgabe, dass in der Ausgabe auch der Herstellername angezeigt wird:
@@ -123,27 +110,25 @@ namespace DerDelegateEiskasten
 //       
 //      Entfernen Sie anschließend die obere Ausgabe, damit die Produkte nur einmal angezeigt werden. 
 
-            ikaeKastel.Unterschrank.ZeigeAlleProdukte();
+
+// hier ---> 
 
 
 
             
 
-            //  E)      Legen Sie eine neue Klasse an -> Einbausockel.cs                (5 Punkte - 15 Minuten)
-            //          Zusätzlich zu jedem Einbaurahmen soll es nun einen Sockel geben, auf 
-            //          dem die Holzkiste steht. Dieser Sockel soll nur einen Einbaurahmen 
-            //          haben.
-            //          Bauen Sie eine generische Klasse, die diesem Sockel<T> entspricht. 
-            // 
-            //          Rufen Sie Ihn ins Leben, sodass der Einbaurahmen nur wie folgt adressiert werden kann: 
-            //          ikaeSockel.ikaeKastel ....  
+//  E)      Legen Sie eine neue Klasse an -> Einbausockel.cs                (5 Punkte - 15 Minuten)
+//          Zusätzlich zu jedem Einbaurahmen soll es nun einen Sockel geben, auf 
+//          dem die Holzkiste steht. Dieser Sockel soll nur einen Einbaurahmen 
+//          haben.
+//          Bauen Sie eine generische Klasse, die diesem Sockel<T> entspricht. 
+// 
+//          Rufen Sie Ihn ins Leben, sodass der Einbaurahmen nur wie folgt adressiert werden kann: 
+//          ikaeSockel.ikaeKastel ....  
 
-            Einbausockel<Einbaurahmen<Kuehli, KuehliFuerLagerProdukte>> ikaeSockel = 
-                new Einbausockel<Einbaurahmen<Kuehli, KuehliFuerLagerProdukte>>(ikaeKastel, "Super Einbausockel");
+          
 
-            // Test it ...
-            ikaeSockel.Einbaurahmen.Oberschrank.Beep(200);
-
+// Test it ...
 
 
 
@@ -166,8 +151,8 @@ namespace DerDelegateEiskasten
 //          Was fällt Ihnen auf? Aus einem Grund verhält sich eines der Geräte sonderbar. 
 //          Versuchen Sie den Fehler zu finden ... 
 
-                Extensionmethodes.Ausgabe(ikaeKastel.Oberschrank.GetActualTemperature());
-                Extensionmethodes.Ausgabe(ikaeKastel.Unterschrank.GetActualTemperature());
+// hier ---> 
+
 
                 Thread.Sleep(1000);
             }
@@ -178,13 +163,9 @@ namespace DerDelegateEiskasten
 
             //  G)      Shutdown all devices                                        (Zusatzpunkte: 2 Punkte, 5 Minute)
 
-            ikaeSockel.Einbaurahmen.Oberschrank.Ausschalten();
-            ikaeSockel.Einbaurahmen.Unterschrank.Ausschalten();
+// hier ---> 
 
         }
-
-
-
 
 
 
